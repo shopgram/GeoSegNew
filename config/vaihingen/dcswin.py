@@ -1,7 +1,7 @@
 from torch.utils.data import DataLoader
 from geoseg.losses import *
 from geoseg.datasets.vaihingen_dataset import *
-from geoseg.models.DCSwin import dcswin_small
+from geoseg.models.DCSwin import dcswin_base
 from catalyst.contrib.nn import Lookahead
 from catalyst import utils
 
@@ -18,9 +18,9 @@ accumulate_n = 1
 num_classes = len(CLASSES)
 classes = CLASSES
 
-weights_name = "dcswin-small-1024-ms-512crop-e70"
+weights_name = "dcswin-base-1024-ms-512crop-e70"
 weights_path = "model_weights/vaihingen/{}".format(weights_name)
-test_weights_name = "dcswin-small-1024-ms-512crop-e70"
+test_weights_name = "dcswin-base-1024-ms-512crop-e70"
 log_name = 'vaihingen/{}'.format(weights_name)
 monitor = 'val_F1'
 monitor_mode = 'max'
@@ -32,7 +32,7 @@ strategy = None
 pretrained_ckpt_path = None
 resume_ckpt_path = None
 #  define the network
-net = dcswin_small(num_classes=num_classes)
+net = dcswin_base(num_classes=num_classes)
 
 # define the loss
 loss = JointLoss(SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=ignore_index),
