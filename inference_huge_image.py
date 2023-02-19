@@ -149,8 +149,9 @@ def main():
     config = py2cfg(args.config_path)
     model = Supervision_Train.load_from_checkpoint(os.path.join(config.weights_path, config.test_weights_name+'.ckpt'), config=config)
 
+    # fix cuda
     model.cuda(config.gpus[0])
-    model.eval()
+    # model.eval()
 
     if args.tta == "lr":
         transforms = tta.Compose(
@@ -193,7 +194,10 @@ def main():
                                     drop_last=False, shuffle=False)
             for input in tqdm(dataloader):
                 # raw_prediction NxCxHxW
+                # fix cuda
                 raw_predictions = model(input['img'].cuda(config.gpus[0]))
+                # raw_predictions = model(input['img'])
+
                 # print('raw_pred shape:', raw_predictions.shape)
                 raw_predictions = nn.Softmax(dim=1)(raw_predictions)
                 # input_images['features'] NxCxHxW C=3
