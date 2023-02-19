@@ -73,26 +73,26 @@ def val_aug(img, mask):
     return img, mask
 
 
-# train_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/train', mode='train',
-#                                  mosaic_ratio=0.25, transform=train_aug)
-#
-# val_dataset = VaihingenDataset(transform=val_aug)
-# test_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/test',
-#                                 transform=val_aug)
+train_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/train', mode='train',
+                                 mosaic_ratio=0.25, transform=train_aug)
 
-# train_loader = DataLoader(dataset=train_dataset,
-#                           batch_size=train_batch_size,
-#                           num_workers=4,
-#                           pin_memory=True,
-#                           shuffle=True,
-#                           drop_last=True)
-#
-# val_loader = DataLoader(dataset=val_dataset,
-#                         batch_size=val_batch_size,
-#                         num_workers=4,
-#                         shuffle=False,
-#                         pin_memory=True,
-#                         drop_last=False)
+val_dataset = VaihingenDataset(transform=val_aug)
+test_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/test',
+                                transform=val_aug)
+
+train_loader = DataLoader(dataset=train_dataset,
+                          batch_size=train_batch_size,
+                          num_workers=4,
+                          pin_memory=True,
+                          shuffle=True,
+                          drop_last=True)
+
+val_loader = DataLoader(dataset=val_dataset,
+                        batch_size=val_batch_size,
+                        num_workers=4,
+                        shuffle=False,
+                        pin_memory=True,
+                        drop_last=False)
 
 # define the optimizer
 layerwise_params = {"backbone.*": dict(lr=backbone_lr, weight_decay=backbone_weight_decay)}
