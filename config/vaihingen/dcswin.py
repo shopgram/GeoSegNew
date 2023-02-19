@@ -76,7 +76,7 @@ def val_aug(img, mask):
 train_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/train', mode='train',
                                  mosaic_ratio=0.25, transform=train_aug)
 
-val_dataset = VaihingenDataset(transform=val_aug)
+val_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/val', transform=val_aug)
 test_dataset = VaihingenDataset(data_root='/kaggle/input/vaihingenmakan/vaihingen/test',
                                 transform=val_aug)
 
